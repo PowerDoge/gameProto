@@ -1,13 +1,18 @@
 let gridCount = 6;
 
-function Board(a) {
-  this.x = windowWidth / 2 - ((a * gridCount) / 2);
-  this.y = 50;
+function Board() {
+  if (windowWidth <= windowHeight) {
+    this.w = floor(windowWidth - windowWidth / 5);
+  } else {
+    this.w = floor(windowHeight - windowHeight / 5);
+  }
+  this.x = floor(windowWidth / 2 -this.w/2);
+  this.y = floor(windowHeight / 2 -this.w/2);
 
   this.show = function() {
     stroke(1);
-    fill(255);
-    rect(this.x, this.y, a * gridCount, a * gridCount);
+    fill(225);
+    rect(this.x, this.y, this.w, this.w);
   }
 
 }
