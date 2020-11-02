@@ -89,6 +89,7 @@ function resetGame() {
 
 }
 
+// '''FUNCTIONS'''
 function gameCheck(c) {
   let temp = c%2;
   switch (temp) {
@@ -111,7 +112,7 @@ function gameCheck(c) {
 }
 
 function PrintText() {
-  this.x = canvas.width / 2;
+  this.x = windowWidth / 2;
   this.y = 30;
   let temp2;
   let temp3;
@@ -141,9 +142,19 @@ function PrintText() {
 
 }
 
+// function windowResized() {
+//   // console.log(windowWidth, windowHeight);
+//   if (windowWidth > 650 && windowHeight > 650) {
+//     resizeCanvas(windowWidth, windowHeight);
+//   } else {
+//     resizeCanvas(600, 650);
+//     // console.log(canvas.width, canvas.height);
+//   }
+// }
+// '''SETUP'''
 
 function setup() {
-  createCanvas(600, 650);
+  createCanvas(windowWidth, windowHeight);
   board = new Board(a);
   cellGrid = make2dArray(gridCount);
   for (let i1 = 0; i1 < gridCount; i1++) {
@@ -163,6 +174,7 @@ function setup() {
 
 }
 
+// '''DRAW'''
 function draw() {
   background(255);
   for (let i = 0; i < gridCount; i++) {
@@ -178,8 +190,9 @@ function draw() {
   topText.show();
 }
 
+// '''EVENTS'''
 function mousePressed() {
-  console.log(mouseX, mouseY);
+  // console.log(mouseX, mouseY);
   for (let i = 0; i < gridCount; i++) {
     for (let j = 0; j < gridCount; j++) {
       cellGrid[i][j].mouseCheck(mouseX, mouseY, count, tileW);
@@ -242,13 +255,3 @@ function mouseReleased() {
     }
   }
 }
-//
-// function windowResized() {
-//   // console.log(windowWidth, windowHeight);
-//   if (windowWidth > 650 && windowHeight > 650) {
-//     resizeCanvas(windowWidth, windowHeight);
-//   } else {
-//     resizeCanvas(600, 650);
-//     // console.log(canvas.width, canvas.height);
-//   }
-// }

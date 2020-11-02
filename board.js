@@ -1,8 +1,7 @@
-
 let gridCount = 6;
 
 function Board(a) {
-  this.x = (canvas.width / 2) - ((a * gridCount) / 2);
+  this.x = windowWidth / 2 - ((a * gridCount) / 2);
   this.y = 50;
 
   this.show = function() {

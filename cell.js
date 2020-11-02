@@ -29,7 +29,7 @@ function Cell(x, y, a1, j, i) {
           if (true) {
             // console.log('k: ', k, 'l1: ', l1);
             if ((this.i - 2 + l1 < 6 && this.i - 2 + l1 >= 0) && (this.j - 2 + k < 6 && this.j - 2 + k >= 0)) {
-              cellGrid[this.i - 2 + l1][this.j - 2 + k].valid = tierList[t-1][l1][k];
+              cellGrid[this.i - 2 + l1][this.j - 2 + k].valid = tierList[t - 1][l1][k];
               // cellGrid[this.i - 2 + k][this.j - 2 + l1].valid = tierList[0][k][l1];
               // console.log(cellGrid[this.j - 2 + k][this.i - 2 + l1].valid, tierList[0][k][l1]);
             }
@@ -41,7 +41,7 @@ function Cell(x, y, a1, j, i) {
 }
 
 Cell.prototype.show = function() {
-  fill(255-this.valid * 30);
+  fill(255 - this.valid * 30);
   stroke(1);
   rect(this.x, this.y, this.a, this.a);
 }
@@ -53,6 +53,7 @@ Cell.prototype.mouseCheck = function(x, y, c, w) {
   if (x > this.x && x < this.x + this.a && y > this.y && y < this.y + this.a) {
     cursX = this.x + this.a / 2;
     cursY = this.y + this.a / 2;
+    console.log(cursX, cursY);
     if (!active) {
       if (!moved) {
         if (this.isFree == false) {
@@ -111,7 +112,7 @@ Cell.prototype.mouseCheck = function(x, y, c, w) {
     } else {
       if (!moved) {
         if (this.isFree) {
-          if (this.valid == 1 || this.valid == 3){
+          if (this.valid == 1 || this.valid == 3) {
             for (let t1 = 0; t1 < tiles.length; t1++) {
               if (tiles[t1].state == 'act') {
                 if (cursX == tiles[t1].x && cursY == tiles[t1].y) {
@@ -122,11 +123,26 @@ Cell.prototype.mouseCheck = function(x, y, c, w) {
                 }
               }
             }
+          } else if (this.valid == 4) {
+            for (let t1 = 0; t1 < tiles.length; t1++) {
+              tiles[t1].state = 'wait';
+              console.log(tiles[t1].state);
+            }
+
+            for (let i = 0; i < gridCount; i++) {
+              for (let j = 0; j < gridCount; j++) {
+                cellGrid[i][j].valid = 0;
+                console.log(cellGrid[i][j].valid);
+              }
+            }
+            this.isFree = false;
+            active = false;
+            console.log('c: ', count, 'm: ', moved, 'p: ', placed, 'a: ', active);
           } else {
             canMove = false;
           }
         } else {
-          if (this.valid == 2 || this.valid == 3){
+          if (this.valid == 2 || this.valid == 3) {
             for (let t2 = 0; t2 < tiles.length; t2++) {
               if (tiles[t2].state == 'act') {
                 for (let t3 = 0; t3 < tiles.length; t3++) {
