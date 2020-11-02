@@ -1,5 +1,5 @@
-var a = 90; //Cell width
-var tileW = 80;
+let a; //Cell width
+let tileW;
 let button;
 let topText;
 
@@ -12,6 +12,7 @@ let wTotal = 0;
 var mod;
 var cursX;
 var cursY;
+let rc = 0;
 
 var moved = false;
 var placed = false;
@@ -63,6 +64,7 @@ function counter() {
 
 function resetGame() {
   count = 0;
+  rc = 0;
   bTotal = 0;
   wTotal = 0;
   cursX = undefined;
@@ -91,13 +93,13 @@ function resetGame() {
 
 // '''FUNCTIONS'''
 function gameCheck(c) {
-  let temp = c%2;
+  let temp = c % 2;
   switch (temp) {
     case 1:
-      wTotal+=1;
+      wTotal += 1;
       break;
     case 0:
-      bTotal+=1;
+      bTotal += 1;
   }
 
   if (bTotal == 6) {
@@ -113,12 +115,12 @@ function gameCheck(c) {
 
 function PrintText() {
   this.x = windowWidth / 2;
-  this.y = 30;
+  this.y = board.y - 30;
   let temp2;
   let temp3;
   // console.log(temp3);
 
-  this.update = function(b,w) {
+  this.update = function(b, w) {
     temp3 = count % 2;
     switch (temp3) {
       case 0:
@@ -142,20 +144,45 @@ function PrintText() {
 
 }
 
-// function windowResized() {
-//   // console.log(windowWidth, windowHeight);
-//   if (windowWidth > 650 && windowHeight > 650) {
-//     resizeCanvas(windowWidth, windowHeight);
-//   } else {
-//     resizeCanvas(600, 650);
-//     // console.log(canvas.width, canvas.height);
-//   }
-// }
-// '''SETUP'''
 
+
+class ResetButton {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.a = a;
+    this.b = floor(a * 0.25);
+
+  }
+
+
+  show = function() {
+    fill(255);
+    rect(this.x - this.a / 2, this.y - this.b / 2, this.a, this.b)
+    textAlign(CENTER);
+    textSize(this.b-3);
+    stroke(0);
+    fill(0);
+    text('RESET', this.x, this.y + this.b / 2 -3);
+  }
+
+  checkButton = function(x, y) {
+    if (x > this.x - this.a / 2 && x < this.x + this.a / 2 && y > this.y - this.b / 2 && y < this.y + this.b / 2) {
+      rc++
+      if (rc >= 3) {
+        resetGame();
+      }
+    }
+  }
+
+}
+
+// '''SETUP'''
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  board = new Board(a);
+  board = new Board();
+  a = floor(board.w / 6);
+  tileW = floor(a * 0.9);
   cellGrid = make2dArray(gridCount);
   for (let i1 = 0; i1 < gridCount; i1++) {
     for (let j1 = 0; j1 < gridCount; j1++) {
@@ -166,9 +193,7 @@ function setup() {
   var mod = count % 2;
   print(mod);
 
-  button = createButton('reset');
-  button.position(canvas.width / 2 - 25, 610);
-  button.mousePressed(resetGame);
+  rb = new ResetButton(windowWidth / 2, board.y + board.w + 30);
 
   topText = new PrintText(mod);
 
@@ -188,11 +213,12 @@ function draw() {
 
   topText.update(bTotal, wTotal);
   topText.show();
+  rb.show();
 }
 
 // '''EVENTS'''
 function mousePressed() {
-  // console.log(mouseX, mouseY);
+  console.log(mouseX, mouseY);
   for (let i = 0; i < gridCount; i++) {
     for (let j = 0; j < gridCount; j++) {
       cellGrid[i][j].mouseCheck(mouseX, mouseY, count, tileW);
@@ -201,6 +227,8 @@ function mousePressed() {
   // console.log('--------pressed--------');
   // console.log(grid);
   // console.log('--------pressed--------');
+  rb.checkButton(mouseX, mouseY);
+  return false;
 }
 
 function mouseReleased() {
@@ -254,4 +282,5 @@ function mouseReleased() {
       }
     }
   }
+  return false;
 }
