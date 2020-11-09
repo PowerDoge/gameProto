@@ -1,10 +1,12 @@
 function PrintText() {
   let temp2;
   let temp3;
-  let fontSize =floor((windowHeight - board.w)/4);
+  let wideScr = floor((windowHeight - board.w) / 4);
+  let slimScr = floor(windowWidth / 12);
+  let fontSize = wideScr > slimScr ? slimScr : wideScr;
 
   this.x = windowWidth / 2;
-  this.y = board.y - fontSize/2;
+  this.y = board.y - fontSize / 2;
   // console.log(temp3);
 
   this.update = function(b, w) {
