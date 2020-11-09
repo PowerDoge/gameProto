@@ -1,9 +1,9 @@
 class ResetButton {
   constructor(x, y) {
     this.x = x;
-    this.y = y;
-    this.a = a;
-    this.b = floor(a * 0.25);
+    this.y = windowHeight - floor((windowHeight - board.w)/4);
+    this.a = 1.5 * a;
+    this.b = floor(a * 0.4);
 
   }
 
@@ -15,7 +15,7 @@ class ResetButton {
     textSize(this.b-3);
     stroke(0);
     fill(0);
-    text('RESET', this.x, this.y + this.b / 2 -3);
+    text('RESET', this.x, this.y + this.b / 2 - 3);
   }
 
   checkButton = function(x, y) {

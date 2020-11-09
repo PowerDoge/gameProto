@@ -115,6 +115,7 @@ function gameCheck(c) {
 
 // '''SETUP'''
 function setup() {
+  var mod = count % 2;
   createCanvas(windowWidth, windowHeight);
   board = new Board();
   a = floor(board.w / 6);
@@ -126,13 +127,8 @@ function setup() {
     }
   }
 
-  var mod = count % 2;
-  print(mod);
-
-  rb = new ResetButton(windowWidth / 2, board.y + board.w + 30);
-
+  rb = new ResetButton(windowWidth / 2, board.y + board.w);
   topText = new PrintText(mod);
-
 }
 
 // '''DRAW'''

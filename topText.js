@@ -5,7 +5,6 @@ function PrintText() {
 
   this.x = windowWidth / 2;
   this.y = board.y - fontSize/2;
-  console.log(fontSize)
   // console.log(temp3);
 
   this.update = function(b, w) {
