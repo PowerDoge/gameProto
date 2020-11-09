@@ -6,8 +6,8 @@ function Board() {
   } else {
     this.w = floor(windowHeight - windowHeight / 5);
   }
-  this.x = floor(windowWidth / 2 -this.w/2);
-  this.y = floor(windowHeight / 2 -this.w/2);
+  this.x = floor(windowWidth / 2 - this.w / 2);
+  this.y = floor(windowHeight / 2 - this.w / 2);
 
   this.show = function() {
     stroke(1);

@@ -6,7 +6,7 @@ function Tile(x, y, c, w, t) {
   this.tier = t;
   this.state = '';
 
-  switch (this.c){
+  switch (this.c) {
     case 255:
       this.tc = 0;
       break;
@@ -22,7 +22,7 @@ function Tile(x, y, c, w, t) {
     fill(this.tc);
     textAlign(CENTER);
     textSize(20);
-    text(this.tier, this.x, this.y+8);
+    text(this.tier, this.x, this.y + 8);
   }
 
   this.tierCheck = function() {
