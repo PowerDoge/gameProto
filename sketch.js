@@ -49,6 +49,7 @@ function counter() {
       moved = false;
       placed = false;
       eaten = false;
+      rc=0;
       console.log('c: ', count, 'm: ', moved, 'p: ', placed, 'a: ', active);
     }
   } else if (count >= 12) {
@@ -57,6 +58,7 @@ function counter() {
       count += 1;
       moved = false;
       eaten = false;
+      rc=0;
       console.log('c: ', count, 'm: ', moved, 'p: ', placed, 'a: ', active);
     }
   }
