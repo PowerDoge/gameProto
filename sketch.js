@@ -162,6 +162,7 @@ function draw() {
   rb.show();
   for (let m2 = 0; m2 < tButtons.length; m2++) {
     tButtons[m2].show();
+    tButtons[m2].dots();
   }
 }
 

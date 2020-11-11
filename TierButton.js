@@ -18,6 +18,16 @@ function TierButton(x, y, t, c, textcol) {
     text(this.t, this.x, this.y + 10);
   }
 
+  this.dots = function() {
+    let temp = 3 - this.count;
+    let temp1 = this.y - this.a / 2;
+    fill(0);
+    for (let i = 0; i < 3-this.count; i++) {
+      ellipse(this.x - this.a, temp1, 10, 10);
+      temp1 += 15;
+    }
+  }
+
   this.checkButton = function(x, y, c) {
     if (this.act) {
       if (x > this.x - this.a / 2 && x < this.x + this.a / 2 && y > this.y - this.a / 2 && y < this.y + this.a / 2) {
