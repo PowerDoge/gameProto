@@ -90,6 +90,11 @@ function resetGame() {
   tiles.splice(0, tiles.length);
 
 
+  for (let m2 = 0; m2 < tButtons.length; m2++) {
+    tButtons[m2].count = 0;
+    tButtons[m2].act = true;
+  }
+
   for (let i1 = 0; i1 < gridCount; i1++) {
     for (let j1 = 0; j1 < gridCount; j1++) {
       cellGrid[i1][j1].isFree = true;
@@ -224,7 +229,9 @@ function mouseReleased() {
     for (let t1 = 0; t1 < tiles.length; t1++) {
       if (tiles[t1].state == 'act') {
         tiles[t1].moveTile(cursX, cursY);
-        tiles[t1].tier += 1;
+        if (tiles[t1].tier <6){
+          tiles[t1].tier += 1;
+        }
         eaten = !eaten;
         moved = !moved;
         active = !active;
