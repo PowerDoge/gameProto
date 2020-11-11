@@ -83,28 +83,33 @@ Cell.prototype.mouseCheck = function(x, y, c, w) {
           }
         } else if (!placed) {
           if (c < 12) {
-            if (mod == 0 && this.rowType == type[1]) {
-              curCol = 0;
-              canPlace = !canPlace;
-              this.isFree = false;
-            } else if (mod == 1 && this.rowType == type[2]) {
-              curCol = 255;
-              canPlace = !canPlace;
-              this.isFree = false;
+            if(curTier){
+              if (mod == 0 && this.rowType == type[1]) {
+                curCol = 0;
+                canPlace = !canPlace;
+                this.isFree = false;
+              } else if (mod == 1 && this.rowType == type[2]) {
+                curCol = 255;
+                canPlace = !canPlace;
+                this.isFree = false;
+              }
             }
+
           }
         }
       } else if (!placed) {
         if (c < 12) {
-          if (this.isFree) {
-            if (mod == 0 && this.rowType == type[1]) {
-              curCol = 0;
-              canPlace = !canPlace;
-              this.isFree = false;
-            } else if (mod == 1 && this.rowType == type[2]) {
-              curCol = 255;
-              canPlace = !canPlace;
-              this.isFree = false;
+          if(curTier){
+            if (this.isFree) {
+              if (mod == 0 && this.rowType == type[1]) {
+                curCol = 0;
+                canPlace = !canPlace;
+                this.isFree = false;
+              } else if (mod == 1 && this.rowType == type[2]) {
+                curCol = 255;
+                canPlace = !canPlace;
+                this.isFree = false;
+              }
             }
           }
         }

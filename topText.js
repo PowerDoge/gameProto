@@ -1,7 +1,7 @@
 function PrintText() {
   let temp2;
   let temp3;
-  let wideScr = floor((windowHeight - board.w) / 4);
+  let wideScr = upperUIy;
   let slimScr = floor(windowWidth / 12);
   let fontSize = wideScr > slimScr ? slimScr : wideScr;
 

@@ -1,7 +1,11 @@
 let a; //Cell width
 let tileW;
-let button;
+let rb;
+let w1b, w2b, b1b, b2b;
+let tButtons = [w1b, w2b, b1b, b2b];
 let topText;
+let lowerUIy;
+let upperUIy;
 
 var cellGrid;
 var tiles = [];
@@ -20,6 +24,7 @@ var eaten = false;
 var active = false;
 
 var curCol;
+let curTier = undefined;
 
 var canPlace = false;
 var canMove = false;
@@ -49,6 +54,8 @@ function counter() {
       moved = false;
       placed = false;
       eaten = false;
+      curTier = undefined;
+      rc =0;
       console.log('c: ', count, 'm: ', moved, 'p: ', placed, 'a: ', active);
     }
   } else if (count >= 12) {
@@ -57,6 +64,7 @@ function counter() {
       count += 1;
       moved = false;
       eaten = false;
+      rc =0;
       console.log('c: ', count, 'm: ', moved, 'p: ', placed, 'a: ', active);
     }
   }
@@ -127,6 +135,12 @@ function setup() {
     }
   }
 
+  lowerUIy = windowHeight - floor((windowHeight - board.w) / 4);
+  upperUIy = floor((windowHeight - board.w) / 4);
+  tButtons[0] = new TierButton(windowWidth - a*2, upperUIy, 1, 'white', 'black');
+  tButtons[1] = new TierButton(windowWidth - a, upperUIy, 2, 'white', 'black');
+  tButtons[2] = new TierButton(windowWidth - a*2, lowerUIy, 1, 'black', 'white');
+  tButtons[3] = new TierButton(windowWidth - a, lowerUIy, 2, 'black', 'white');
   rb = new ResetButton(windowWidth / 2, board.y + board.w);
   topText = new PrintText(mod);
 }
@@ -144,8 +158,11 @@ function draw() {
   }
 
   topText.update(bTotal, wTotal);
-  topText.show();
+  // topText.show();
   rb.show();
+  for (let m2 = 0; m2 < tButtons.length; m2++) {
+    tButtons[m2].show();
+  }
 }
 
 // '''EVENTS'''
@@ -156,20 +173,28 @@ function mousePressed() {
       cellGrid[i][j].mouseCheck(mouseX, mouseY, count, tileW);
     }
   }
-  // console.log('--------pressed--------');
-  // console.log(grid);
-  // console.log('--------pressed--------');
+
   rb.checkButton(mouseX, mouseY);
+  for (let m2 = 0; m2 < tButtons.length; m2++) {
+    tButtons[m2].checkButton(mouseX, mouseY, count);
+  }
+
   return false;
 }
 
 function mouseReleased() {
   if (canPlace) {
-    var tile = new Tile(cursX, cursY, curCol, tileW, 1);
+    var tile = new Tile(cursX, cursY, curCol, tileW, curTier);
     tiles.push(tile);
     placed = !placed
-    counter();
     canPlace = !canPlace;
+
+    for (let m2 = 0; m2 < tButtons.length; m2++) {
+      tButtons[m2].tierCount(curTier, curCol);
+    }
+
+    counter();
+
   } else if (canMove) {
     for (let t1 = 0; t1 < tiles.length; t1++) {
       if (tiles[t1].state == 'act') {

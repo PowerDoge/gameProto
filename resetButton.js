@@ -1,6 +1,6 @@
-function ResetButton(x, y) {
+function ResetButton(x) {
   this.x = x;
-  this.y = windowHeight - floor((windowHeight - board.w) / 4);
+  this.y = lowerUIy;
   this.a = 1.5 * a;
   this.b = floor(a * 0.4);
 
